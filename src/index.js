@@ -1,44 +1,22 @@
 module.exports = function check(str, bracketsConfig) {
-var steck = []; 
-var counter = 0;
+    var steck = [];
 
 
-
-for (var a = 0; a < str.length; a++){
-    for (var i = 0; i < bracketsConfig.length; i++){
-        
-         
-        if (bracketsConfig[i][0] == bracketsConfig[i][1]){
-                if (bracketsConfig[i][0] == str.charAt(a) && steck[steck.length-1] != bracketsConfig[i][0]){
-                    steck.push(str.charAt(a));
-                    counter++;
-                    break;
-                } else if (bracketsConfig[i][0] == str.charAt(a) && steck[steck.length-1] == bracketsConfig[i][0]){
-                    steck.pop;
-                    counter--;
-                    break;
-                }         
-            } else 
-                if (str.charAt(a) == bracketsConfig[i][0]){
-                    steck.push(str.charAt(a));
-                    counter++
-                    break;
-                } else if (str.charAt(a) == bracketsConfig[i][1] && steck[steck.length-1] == bracketsConfig[i][0]) {
-                    if (counter == 0){
-                        return false;
-                    }
-                    steck.pop;
-                    counter--;
-                    break;
-
+    for (var i = 0; i < str.length; i++){
+        for (var j = 0; j < bracketsConfig.length; j++){
+            if (str[i] == bracketsConfig[j][0]){
+                steck.push(str[i]);
+                break;
+            } else if (str[i] == bracketsConfig[j][1]){
+                if(steck.length != 0){
+                    if(steck[steck.length-1] == bracketsConfig[j][0]){
+                        steck.pop();
+                        break;
+                    } else return false;
+                } else return false;
             }
-        
+        }
     }
-}          
-    if (counter == 0){
-        return true;
-    } else {
-        return false;
-    }
-    
+        return (steck.length == 0);
 }
+        

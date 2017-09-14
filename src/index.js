@@ -42,4 +42,3 @@ for (var a = 0; a < str.length; a++){
     }
     
 }
-
